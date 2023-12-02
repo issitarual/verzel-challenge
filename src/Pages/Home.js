@@ -8,7 +8,6 @@ export default function Home({ drawerWidth, open }) {
   const Container = styled(Box)(({ theme, drawerWidth, open }) => ({
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     marginTop: "80px",
     marginRight: "15px",
     ...(open && {

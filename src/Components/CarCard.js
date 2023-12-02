@@ -1,31 +1,35 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import AddIcon from "@mui/icons-material/Add";
 
-export default function CarCard({car}){
-    const {id, image, model, price} = car;
-    return(
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={image}
-        title={model}
-      />
+export default function CarCard({ car }) {
+  const { brand, image, model, price } = car;
+  return (
+    <Card sx={{ maxWidth: 345, margin: "10px" }}>
+      <CardMedia sx={{ height: 140 }} image={image} title={model} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {model}
+        <Typography gutterBottom variant="h5" align="center">
+          {`${brand} ${model}`}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ fontWeight: "bold" }}
+          align="center"
+        >
           {`R$ ${price}`}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Adicionar ao Carrinho</Button>
-        <Button size="small">Mais informações</Button>
+        <Button size="small">
+          {" "}
+          <AddIcon /> Adicionar ao Carrinho
+        </Button>
       </CardActions>
     </Card>
   );
