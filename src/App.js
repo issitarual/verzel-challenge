@@ -3,14 +3,16 @@ import UserContext from "./Context/UserContext";
 import CartContext from "./Context/CartContext";
 import { useState } from "react";
 import Home from "./Pages/Home";
-import Login from "./Pages/Login";
-import SignUp from "./Pages/SignUp";
-import Car from "./Pages/Car";
 import Profile from "./Pages/Profile";
+import DrawerMenu from "./Components/Drawer";
+import Header from "./Components/Header";
 
 function App() {
   const [user, setUser] = useState();
   const [cart, setCart] = useState([]);
+  const [open, setOpen] = useState(false);
+  const drawerWidth = 240;
+
   return (
     <UserContext.Provider
       value={{
@@ -18,6 +20,8 @@ function App() {
         setUser,
       }}
     >
+      <Header open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
+      <DrawerMenu open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
       <CartContext.Provider
         value={{
           cart: cart || JSON.parse(localStorage.getItem("cart")),
@@ -26,10 +30,7 @@ function App() {
       >
         <BrowserRouter>
           <Routes>
-            <Route path="/" Component={Home} />
-            <Route path="/login" Component={Login} />
-            <Route path="/sign-up" Component={SignUp} />
-            <Route path="/car/:carId"  Component={Car} />
+            <Route path="/" element={<Home drawerWidth={drawerWidth} open={open}/>} />
             <Route path="/profile" Component={Profile} />
           </Routes>
         </BrowserRouter>
