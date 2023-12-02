@@ -31,7 +31,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home drawerWidth={drawerWidth} open={open}/>} />
-            <Route path="/profile" Component={Profile} />
+            <Route path="/profile" element={<Profile drawerWidth={drawerWidth} open={open}/>} />
           </Routes>
         </BrowserRouter>
       </CartContext.Provider>

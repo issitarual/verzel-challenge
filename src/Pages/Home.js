@@ -17,10 +17,14 @@ export default function Home({ drawerWidth, open }) {
       marginLeft: "80px",
     }),
   }));
-
+  function sortByPrice(car) {
+    return car.sort(function(a, b) {
+      return a.price < b.price ? -1 : (a.price > b.price) ? 1 : 0;
+    });
+  }
   return (
     <Container component="main" drawerWidth={drawerWidth} open={open}>
-      {carsList.map((c) => (
+      {sortByPrice(carsList).map((c) => (
         <CarCard car={c} key={c.id} />
       ))}
     </Container>
