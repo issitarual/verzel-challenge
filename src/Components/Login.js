@@ -21,7 +21,7 @@ export default function Login() {
       <Typography variant="h6">{LOGIN_TITLE}</Typography>
       <FormContainer>
         <TextField id="email" label="E-mail" margin="normal" />
-        <TextField id="password" label="Senha" margin="normal" />
+        <TextField id="password" label="Senha" margin="normal" type="password" />
         <Button variant="contained" sx={{ marginY: "10px" }}>
           {LOGIN_BUTTON}
         </Button>
