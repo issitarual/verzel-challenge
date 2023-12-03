@@ -1,6 +1,7 @@
 import * as React from "react";
 import Login from "../Components/Login";
 import SignUp from "../Components/SignUp";
+import UserProfile from "../Components/UserProfile"
 import { Box, styled } from "@mui/material";
 const Container = styled(Box)(() => ({
   display: "flex",
@@ -10,6 +11,6 @@ const Container = styled(Box)(() => ({
 }));
 export default function Profile() {
   return <Container>
-    <SignUp />
+    <UserProfile />
   </Container>;
 }
