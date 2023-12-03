@@ -4,6 +4,7 @@ import CartContext from "./Context/CartContext";
 import { useState } from "react";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
+import AddCar from "./Pages/AddCar";
 import DrawerMenu from "./Components/Drawer";
 import Header from "./Components/Header";
 import { Box } from "@mui/material";
@@ -47,6 +48,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home drawerWidth={drawerWidth} open={open}/>} />
             <Route path="/profile" element={<Profile drawerWidth={drawerWidth} open={open}/>} />
+            <Route path="/vehicle" element={<AddCar drawerWidth={drawerWidth} open={open}/>} />
           </Routes>
         </BrowserRouter>
         </Container>

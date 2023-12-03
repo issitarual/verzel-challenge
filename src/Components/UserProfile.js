@@ -1,7 +1,6 @@
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import { Typography, styled } from "@mui/material";
 import React from "react";
 
@@ -23,7 +22,12 @@ export default function UserProfile() {
       <Typography variant="h6">{PROFILE_NAME}</Typography>
       <Typography variant="h6">{PROFILE_EMAIL}</Typography>
       <FormContainer>
-        <TextField id="password" label="Alterar senha" margin="normal" type="password" />
+        <TextField
+          id="password"
+          label="Alterar senha"
+          margin="normal"
+          type="password"
+        />
         <Button variant="contained" sx={{ marginY: "10px" }}>
           {UPDATE_PASSWORD_BUTTON}
         </Button>
