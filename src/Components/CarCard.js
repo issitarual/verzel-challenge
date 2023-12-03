@@ -27,7 +27,6 @@ export default function CarCard({ car }) {
       </CardContent>
       <CardActions>
         <Button size="small">
-          {" "}
           <AddIcon /> Adicionar ao Carrinho
         </Button>
       </CardActions>
