@@ -6,12 +6,26 @@ import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import DrawerMenu from "./Components/Drawer";
 import Header from "./Components/Header";
+import { Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 function App() {
   const [user, setUser] = useState();
   const [cart, setCart] = useState([]);
   const [open, setOpen] = useState(false);
   const drawerWidth = 240;
+  const Container = styled(Box)(({ theme, drawerWidth, open }) => ({
+    display: "flex",
+    alignItems: "center",
+    marginTop: "80px",
+    marginRight: "15px",
+    ...(open && {
+      marginLeft: `calc(15px + ${drawerWidth}px)`,
+    }),
+    ...(!open && {
+      marginLeft: "80px",
+    }),
+  }));
 
   return (
     <UserContext.Provider
@@ -28,12 +42,14 @@ function App() {
           setCart,
         }}
       >
+        <Container component="main" drawerWidth={drawerWidth} open={open}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home drawerWidth={drawerWidth} open={open}/>} />
             <Route path="/profile" element={<Profile drawerWidth={drawerWidth} open={open}/>} />
           </Routes>
         </BrowserRouter>
+        </Container>
       </CartContext.Provider>
     </UserContext.Provider>
   );

@@ -1,25 +1,12 @@
 import * as React from "react";
-import CarCard from "../Components/CarCard";
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
-export default function Profile({ drawerWidth, open }) {
-  const Container = styled(Box)(({ theme, drawerWidth, open }) => ({
-    display: "flex",
-    alignItems: "center",
-    marginTop: "80px",
-    marginRight: "15px",
-    ...(open && {
-      marginLeft: `calc(15px + ${drawerWidth}px)`,
-    }),
-    ...(!open && {
-      marginLeft: "80px",
-    }),
-  }));
-
-  return (
-    <Container component="main" drawerWidth={drawerWidth} open={open}>
-     lala
-    </Container>
-  );
+import Login from "../Components/Login";
+import { Box, styled } from "@mui/material";
+const Container = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+  width: "100%",
+}));
+export default function Profile() {
+  return <Container></Container>;
 }

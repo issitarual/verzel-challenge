@@ -15,11 +15,23 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+
+const MENU = {
+  home: "Home",
+  account: "Perfil",
+  addVehicle: "Cadastrar veículo",
+  order: "Pedidos",
+  logOut: "Sair"
+}
 
 const menuItems = [
-  { name: "Home", icon: <HomeIcon /> },
-  { name: "Conta", icon: <AccountCircleIcon /> },
-  { name: "Sair", icon: <LogoutIcon /> },
+  { name: MENU.home, icon: <HomeIcon /> },
+  { name: MENU.account, icon: <AccountCircleIcon /> },
+  { name: MENU.addVehicle, icon: <DirectionsCarIcon /> },
+  { name: MENU.order, icon: <ShoppingBagIcon /> },
+  { name: MENU.logOut, icon: <LogoutIcon /> },
 ];
 
 const openedMixin = (theme, drawerWidth) => ({
