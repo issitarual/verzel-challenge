@@ -36,23 +36,21 @@ function App() {
         setUser,
       }}
     >
+    <CartContext.Provider
+      value={{
+        cart: cart || JSON.parse(localStorage.getItem("cart")),
+        setCart,
+      }}
+    >
       <Header open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
       <DrawerMenu open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
-      <CartContext.Provider
-        value={{
-          cart: cart || JSON.parse(localStorage.getItem("cart")),
-          setCart,
-        }}
-      >
         <Container component="main" drawerWidth={drawerWidth} open={open}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home drawerWidth={drawerWidth} open={open}/>} />
-            <Route path="/profile" element={<Profile drawerWidth={drawerWidth} open={open}/>} />
-            <Route path="/vehicle" element={<AddCar drawerWidth={drawerWidth} open={open}/>} />
-            <Route path="/order" element={<Order drawerWidth={drawerWidth} open={open}/>} />
-          </Routes>
-        </BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/vehicle" element={<AddCar />} />
+              <Route path="/order" element={<Order />} />
+            </Routes>
         </Container>
       </CartContext.Provider>
     </UserContext.Provider>

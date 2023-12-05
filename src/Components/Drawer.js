@@ -17,6 +17,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import { useNavigate } from "react-router";
 
 const MENU = {
   home: "Home",
@@ -27,10 +28,10 @@ const MENU = {
 }
 
 const menuItems = [
-  { name: MENU.home, icon: <HomeIcon /> },
-  { name: MENU.account, icon: <AccountCircleIcon /> },
-  { name: MENU.addVehicle, icon: <DirectionsCarIcon /> },
-  { name: MENU.order, icon: <ShoppingBagIcon /> },
+  { name: MENU.home, icon: <HomeIcon />, link: "/" },
+  { name: MENU.account, icon: <AccountCircleIcon />, link: "/profile" },
+  { name: MENU.addVehicle, icon: <DirectionsCarIcon />, link: "/vehicle" },
+  { name: MENU.order, icon: <ShoppingBagIcon />, link: "/order" },
   { name: MENU.logOut, icon: <LogoutIcon /> },
 ];
 
@@ -82,6 +83,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function DrawerMenu({ open, setOpen, drawerWidth }) {
+  let navigate  = useNavigate();
   const theme = useTheme();
 
   const handleDrawerClose = () => {
@@ -108,7 +110,7 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
         <Divider />
         <List>
           {menuItems.map((i, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+            <ListItem key={index} disablePadding sx={{ display: "block" }} onClick={() => navigate(i.link)}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
