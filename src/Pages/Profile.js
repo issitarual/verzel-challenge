@@ -13,14 +13,15 @@ const Container = styled(Box)(() => ({
 }));
 
 export default function Profile() {
-  const { user } = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
   const [login, setLogin] = React.useState(true);
+  console.log(user)
   return (
     <Container>
       {user ? (
-        <UserProfile />
+        <UserProfile user={user} />
       ) : login ? (
-        <Login setLogin={setLogin} />
+        <Login setLogin={setLogin} setUser={setUser} />
       ) : (
         <SignUp setLogin={setLogin} />
       )}
