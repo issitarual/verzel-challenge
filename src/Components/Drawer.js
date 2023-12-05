@@ -15,24 +15,33 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useNavigate } from "react-router";
+import UserContext from "../Context/UserContext";
 
 const MENU = {
   home: "Home",
   account: "Perfil",
   addVehicle: "Cadastrar veículo",
   order: "Pedidos",
-  logOut: "Sair"
-}
+  logOut: "Sair",
+};
 
 const menuItems = [
   { name: MENU.home, icon: <HomeIcon />, link: "/" },
   { name: MENU.account, icon: <AccountCircleIcon />, link: "/profile" },
-  { name: MENU.addVehicle, icon: <DirectionsCarIcon />, link: "/vehicle" },
+];
+
+const menuUserItems = [
+  ...menuItems,
   { name: MENU.order, icon: <ShoppingBagIcon />, link: "/order" },
   { name: MENU.logOut, icon: <LogoutIcon /> },
+];
+
+const menuItemsAdmin = [
+  ...menuUserItems,
+  { name: MENU.addVehicle, icon: <DirectionsCarIcon />, link: "/vehicle" },
 ];
 
 const openedMixin = (theme, drawerWidth) => ({
@@ -83,21 +92,24 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function DrawerMenu({ open, setOpen, drawerWidth }) {
-  let navigate  = useNavigate();
+  let navigate = useNavigate();
   const theme = useTheme();
+  const { user } = React.useContext(UserContext);
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  let menuArray = [];
+
+  if (user && !user?.idUserAdmin) menuArray = menuUserItems;
+  else if (user && user?.idUserAdmin) menuArray = menuItemsAdmin;
+  else menuArray = menuItems;
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Drawer
-        variant="permanent"
-        open={open}
-        drawerWidth={drawerWidth}
-      >
+      <Drawer variant="permanent" open={open} drawerWidth={drawerWidth}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -109,8 +121,13 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {menuItems.map((i, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }} onClick={() => navigate(i.link)}>
+          {menuArray.map((i, index) => (
+            <ListItem
+              key={index}
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => navigate(i.link)}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,

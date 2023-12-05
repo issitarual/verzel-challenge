@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 import CartContext from "./Context/CartContext";
 import { useState } from "react";
