@@ -102,8 +102,8 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
 
   let menuArray = [];
 
-  if (user && !user?.idUserAdmin) menuArray = menuUserItems;
-  else if (user && user?.idUserAdmin) menuArray = menuItemsAdmin;
+  if (user && !user?.isUserAdmin) menuArray = menuUserItems;
+  else if (user && user?.isUserAdmin) menuArray = menuItemsAdmin;
   else menuArray = menuItems;
 
   return (
