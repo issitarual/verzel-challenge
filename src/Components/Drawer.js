@@ -106,6 +106,11 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
   else if (user && user?.isUserAdmin) menuArray = menuItemsAdmin;
   else menuArray = menuItems;
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -126,7 +131,9 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
               key={index}
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate(i.link)}
+              onClick={() =>
+                i.name !== MENU.logOut ? navigate(i.link) : logout
+              }
             >
               <ListItemButton
                 sx={{
