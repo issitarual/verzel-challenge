@@ -10,11 +10,13 @@ import DrawerMenu from "./Components/Drawer";
 import Header from "./Components/Header";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Cart from "./Components/Cart";
 
 function App() {
   const [user, setUser] = useState();
   const [cart, setCart] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
   const drawerWidth = 240;
   const Container = styled(Box)(({ theme, drawerWidth, open }) => ({
     display: "flex",
@@ -36,21 +38,32 @@ function App() {
         setUser,
       }}
     >
-    <CartContext.Provider
-      value={{
-        cart: cart || JSON.parse(localStorage.getItem("cart")),
-        setCart,
-      }}
-    >
-      <Header open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
-      <DrawerMenu open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
+      <CartContext.Provider
+        value={{
+          cart: cart || JSON.parse(localStorage.getItem("cart")),
+          setCart,
+        }}
+      >
+        <Header
+          open={open}
+          setOpen={setOpen}
+          drawerWidth={drawerWidth}
+          setOpenCart={setOpenCart}
+          openCart={openCart}
+        />
+        <DrawerMenu open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
+        <Cart
+          openCart={openCart}
+          setOpenCart={setOpenCart}
+          drawerWidth={drawerWidth}
+        />
         <Container component="main" drawerWidth={drawerWidth} open={open}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/vehicle" element={<AddCar />} />
-              <Route path="/order" element={<Order />} />
-            </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/vehicle" element={<AddCar />} />
+            <Route path="/order" element={<Order />} />
+          </Routes>
         </Container>
       </CartContext.Provider>
     </UserContext.Provider>

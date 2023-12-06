@@ -26,7 +26,7 @@ export default function SignUp({ setLogin }) {
     },
   }));
 
-  function signup(e) {
+  const signup = (e) => {
     e.preventDefault();
     const body = { email, password, name, isUserAdmin: false };
     const request = axios.post(`http://127.0.0.1:8000/users`, body);

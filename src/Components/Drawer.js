@@ -19,6 +19,7 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useNavigate } from "react-router";
 import UserContext from "../Context/UserContext";
+import { Typography } from "@mui/material";
 
 const MENU = {
   home: "Home",
@@ -109,7 +110,7 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
   const logout = () => {
     localStorage.removeItem("user");
     navigate("/");
-    window.location.reload()
+    window.location.reload();
   };
 
   return (
@@ -117,6 +118,7 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
       <CssBaseline />
       <Drawer variant="permanent" open={open} drawerWidth={drawerWidth}>
         <DrawerHeader>
+          <Typography>Menu</Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />

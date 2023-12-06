@@ -32,7 +32,7 @@ function ElevationScroll(props) {
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open, drawerWidth }) => ({
+})(({ theme, open, drawerWidth, openCart }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -46,6 +46,14 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
+  ...(openCart && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
+  }),
 }));
 
 export default function Header(props) {
@@ -54,6 +62,10 @@ export default function Header(props) {
   const handleDrawerOpen = () => {
     props.setOpen(true);
   };
+
+  const handleCartOpen = () => {
+    props.setOpenCart(true);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ElevationScroll {...props}>
@@ -61,6 +73,7 @@ export default function Header(props) {
           position="fixed"
           open={props.open}
           drawerWidth={props.drawerWidth}
+          openCart={props.openCart}
         >
           <Toolbar>
             <IconButton
@@ -101,6 +114,7 @@ export default function Header(props) {
                 aria-label="account of current user"
                 aria-haspopup="true"
                 color="inherit"
+                onClick={handleCartOpen}
               >
                 <ShoppingCartIcon />
               </IconButton>
