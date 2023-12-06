@@ -6,27 +6,24 @@ import React from "react";
 import UserContext from "../Context/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { FormBox } from "../styles/components";
 
 export default function UserProfile() {
   const UPDATE_PASSWORD_BUTTON = "Alterar senha";
   const PROFILE_TITLE = "Perfil";
   const PROFILE_NAME = "Nome: ";
   const PROFILE_EMAIL = "E-mail: ";
-  const FormContainer = styled("form")(({ theme }) => ({
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("sm")]: {
-      width: "500px",
-    },
-  }));
+
   const { user } = React.useContext(UserContext);
-  const [password, setPassword] = React.useState(user?.password)
-  const [loading, setLoading] = React.useState(false)
+  const [password, setPassword] = React.useState(user?.password);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
   function updatePassword(e) {
     e.preventDefault();
+    if (!password.trim()) {
+      return alert("Insira uma senha válida.");
+    }
     const body = { email: user?.email, password };
     const request = axios.patch(`http://127.0.0.1:8000/user/${user?.id}`, body);
     setLoading(true);
@@ -48,7 +45,7 @@ export default function UserProfile() {
       <Typography variant="h5">{PROFILE_TITLE}</Typography>
       <Typography variant="h6">{`${PROFILE_NAME}${user?.name}`}</Typography>
       <Typography variant="h6">{`${PROFILE_EMAIL}${user?.email}`}</Typography>
-      <FormContainer onSubmit={updatePassword}>
+      <FormBox onSubmit={updatePassword}>
         <TextField
           id="password"
           label="Alterar senha"
@@ -56,13 +53,12 @@ export default function UserProfile() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoFocus={true}
-          onClick={() => {
-          }}
+          onClick={() => {}}
         />
         <Button variant="contained" sx={{ marginY: "10px" }} type="submit">
           {UPDATE_PASSWORD_BUTTON}
         </Button>
-      </FormContainer>
+      </FormBox>
     </React.Fragment>
   );
 }

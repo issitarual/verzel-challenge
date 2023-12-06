@@ -1,10 +1,10 @@
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-import { Typography, styled } from "@mui/material";
+import { Typography } from "@mui/material";
 import React from "react";
 import axios from "axios";
+import { FormBox } from "../styles/components";
 
 export default function SignUp({ setLogin }) {
   const [loading, setLoading] = React.useState(false);
@@ -14,20 +14,16 @@ export default function SignUp({ setLogin }) {
   const [focusPassword, setFocusPassword] = React.useState(false);
   const [focuesEmail, setFocuesEmail] = React.useState(false);
   const [focuesName, setFocusName] = React.useState(true);
+
   const SIGNUP_BUTTON = "Cadastrar";
   const SIGNUP_TITLE = "Crie uma conta";
   const CURRENT_USER = "Já é cadastrado? Entre na sua conta!";
-  const FormContainer = styled("form")(({ theme }) => ({
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("sm")]: {
-      width: "500px",
-    },
-  }));
 
   const signup = (e) => {
     e.preventDefault();
+    if(!email.trim() || !password.trim() || !name.trim()){
+      return alert("Não foi possível entrar na conta. Tente novamente.")
+    }
     const body = { email, password, name, isUserAdmin: false };
     const request = axios.post(`http://127.0.0.1:8000/users`, body);
 
@@ -42,12 +38,12 @@ export default function SignUp({ setLogin }) {
       if (error.response.status === 401)
         alert("Falha no login, email ou senha incorretos!");
     });
-  }
+  };
 
   return (
     <React.Fragment>
       <Typography variant="h6">{SIGNUP_TITLE}</Typography>
-      <FormContainer onSubmit={signup}>
+      <FormBox onSubmit={signup}>
         <TextField
           id="nome"
           label="Nome"
@@ -91,10 +87,15 @@ export default function SignUp({ setLogin }) {
             setFocusName(false);
           }}
         />
-        <Button variant="contained" sx={{ marginY: "10px" }} type="submit">
+        <Button
+          variant="contained"
+          sx={{ marginY: "10px" }}
+          type="submit"
+          disabled={loading}
+        >
           {SIGNUP_BUTTON}
         </Button>
-      </FormContainer>
+      </FormBox>
       <Link underline="hover" onClick={() => setLogin(true)} textAlign="center">
         {CURRENT_USER}
       </Link>

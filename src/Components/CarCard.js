@@ -11,26 +11,22 @@ import CartContext from "../Context/CartContext";
 export default function CarCard({ car }) {
   const { cart, setCart } = React.useContext(CartContext);
   const { brand, image, model, price } = car;
+  const ADD_CART = "Adicionar ao carrinho";
 
   const handleAddCar = (e) => {
     e.stopPropagation();
-    let found = cart.find(
-      (c) => c.model === car.model
-    );
+    let found = cart.find((c) => c.model === car.model);
     if (cart.includes(found)) {
       found.qtd = found.qtd + 1;
       localStorage.setItem("cart", JSON.stringify([...cart]));
       alert("Mais um item adicionado no carrinho!");
     } else {
       let qtd = 1;
-      setCart([...cart, {...car, qtd }]);
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([...cart, {...car, qtd }])
-      );
+      setCart([...cart, { ...car, qtd }]);
+      localStorage.setItem("cart", JSON.stringify([...cart, { ...car, qtd }]));
       alert("Item adicionado no carrinho!");
     }
-  }
+  };
   return (
     <Card sx={{ maxWidth: 345, margin: "10px" }}>
       <CardMedia sx={{ height: 140 }} image={image} title={model} />
@@ -49,7 +45,7 @@ export default function CarCard({ car }) {
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleAddCar}>
-          <AddIcon /> Adicionar ao Carrinho
+          <AddIcon /> {ADD_CART}
         </Button>
       </CardActions>
     </Card>

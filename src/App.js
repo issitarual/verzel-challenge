@@ -11,6 +11,7 @@ import Header from "./Components/Header";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Cart from "./Components/Cart";
+import { AppContainer } from "./styles/components";
 
 function App() {
   const [user, setUser] = useState();
@@ -18,18 +19,6 @@ function App() {
   const [open, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const drawerWidth = 240;
-  const Container = styled(Box)(({ theme, drawerWidth, open }) => ({
-    display: "flex",
-    alignItems: "center",
-    marginTop: "80px",
-    marginRight: "15px",
-    ...(open && {
-      marginLeft: `calc(15px + ${drawerWidth}px)`,
-    }),
-    ...(!open && {
-      marginLeft: "80px",
-    }),
-  }));
 
   return (
     <UserContext.Provider
@@ -57,14 +46,14 @@ function App() {
           setOpenCart={setOpenCart}
           drawerWidth={drawerWidth}
         />
-        <Container component="main" drawerWidth={drawerWidth} open={open}>
+        <AppContainer component="main" drawerWidth={drawerWidth} open={open}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/vehicle" element={<AddCar />} />
             <Route path="/order" element={<Order />} />
           </Routes>
-        </Container>
+        </AppContainer>
       </CartContext.Provider>
     </UserContext.Provider>
   );

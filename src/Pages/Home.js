@@ -1,11 +1,13 @@
 import * as React from "react";
 import CarCard from "../Components/CarCard";
 import axios from "axios";
-import { Box, styled } from "@mui/material";
+import Loading from "../Components/Loading";
+import { MainContainer } from "../styles/components";
 
 export default function Home() {
-  const [car, setCar] = React.useState([])
-  const [loading, setLoading] = React.useState(true)
+  const [car, setCar] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
   React.useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/car`)
@@ -18,23 +20,22 @@ export default function Home() {
         console.log(error);
       });
   }, []);
+
   function sortByPrice(car) {
-    return car.sort(function(a, b) {
-      return a.price < b.price ? -1 : (a.price > b.price) ? 1 : 0;
+    return car.sort(function (a, b) {
+      return a.price < b.price ? -1 : a.price > b.price ? 1 : 0;
     });
   }
-  const Container = styled(Box)(() => ({
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
-    width: "100%",
-  }));
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <Container>
+    <MainContainer>
       {sortByPrice(car).map((c) => (
         <CarCard car={c} key={c.id} />
       ))}
-    </Container>
+    </MainContainer>
   );
 }

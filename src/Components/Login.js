@@ -1,4 +1,3 @@
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
@@ -6,7 +5,7 @@ import { Typography, styled } from "@mui/material";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import FormControlContext from "@mui/material/FormControl/FormControlContext";
+import { FormBox } from "../styles/components";
 
 export default function Login({ setLogin, setUser }) {
   const [loading, setLoading] = React.useState(false);
@@ -14,26 +13,23 @@ export default function Login({ setLogin, setUser }) {
   const [password, setPassword] = React.useState("");
   const [focusPassword, setFocusPassword] = React.useState(false);
   const [focuesEmail, setFocuesEmail] = React.useState(true);
+
   const navigate = useNavigate();
+
   const LOGIN_BUTTON = "Entrar";
   const LOGIN_TITLE = "Entre na sua conta";
   const NOT_USER = "Não possui uma conta? Cadastre-se!";
-  const FormContainer = styled("form")(({ theme }) => ({
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("sm")]: {
-      width: "500px",
-    },
-  }));
 
   function login(e) {
     e.preventDefault();
+    if(!email.trim() || !password.trim()){
+      return alert("Não foi possível entrar na conta. Tente novamente.")
+    }
     const body = { email, password };
     const request = axios.get(`http://127.0.0.1:8000/users`, body);
 
     setLoading(true);
-    console.log(body)
+    console.log(body);
 
     request.then((response) => {
       setUser(response.data);
@@ -51,7 +47,7 @@ export default function Login({ setLogin, setUser }) {
   return (
     <React.Fragment>
       <Typography variant="h6">{LOGIN_TITLE}</Typography>
-      <FormContainer onSubmit={login}>
+      <FormBox onSubmit={login}>
         <TextField
           id="email"
           label="E-mail"
@@ -61,8 +57,8 @@ export default function Login({ setLogin, setUser }) {
           disabled={loading}
           autoFocus={focuesEmail}
           onClick={() => {
-            setFocuesEmail(true)
-            setFocusPassword(false)
+            setFocuesEmail(true);
+            setFocusPassword(false);
           }}
         />
         <TextField
@@ -75,14 +71,19 @@ export default function Login({ setLogin, setUser }) {
           onChange={(e) => setPassword(e.target.value)}
           autoFocus={focusPassword}
           onClick={() => {
-            setFocuesEmail(false)
-            setFocusPassword(true)
+            setFocuesEmail(false);
+            setFocusPassword(true);
           }}
         />
-        <Button variant="contained" type="submit" sx={{ marginY: "10px" }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ marginY: "10px" }}
+          disabled={loading}
+        >
           {LOGIN_BUTTON}
         </Button>
-      </FormContainer>
+      </FormBox>
       <Link
         underline="hover"
         onClick={() => setLogin(false)}

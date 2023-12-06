@@ -1,14 +1,12 @@
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { FormBox, FormContainer } from "../styles/components";
 
 const CREATE_VEHICLE = "Adicionar veículo";
 const UPDATE_VEHICLE = "Atualizar veículo";
@@ -34,22 +32,7 @@ export default function AddCar() {
   const [loading, setLoading] = React.useState(false);
   const [focus, setFocus] = React.useState(CAR_FIELDS.model);
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate()
-  const Container = styled(Box)(() => ({
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    width: "100%",
-  }));
-
-  const FormContainer = styled("form")(({ theme }) => ({
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("sm")]: {
-      width: "500px",
-    },
-  }));
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setCarId(event.target.value);
@@ -81,13 +64,16 @@ export default function AddCar() {
 
   const handleUpdateVehicle = (e) => {
     e.preventDefault();
+    if (!model.trim() || !brand.trim() || !price.trim() || !image.trim()) {
+      return alert("Não foi possível atualizar o veículo, tente novamente.");
+    }
     const body = { model, brand, price, image };
     const request = axios.patch(`http://127.0.0.1:8000/car/${carId}`, body);
 
     setLoading(true);
 
     request.then((response) => {
-      navigate("/")
+      navigate("/");
     });
 
     request.catch((error) => {
@@ -95,7 +81,7 @@ export default function AddCar() {
       if (error.response.status === 401)
         alert("Falha no login, email ou senha incorretos!");
     });
-  }
+  };
 
   const handleDeleteVehicle = (e) => {
     e.preventDefault();
@@ -104,7 +90,7 @@ export default function AddCar() {
     setLoading(true);
 
     request.then((response) => {
-      navigate("/")
+      navigate("/");
     });
 
     request.catch((error) => {
@@ -112,17 +98,22 @@ export default function AddCar() {
       if (error.response.status === 401)
         alert("Falha no login, email ou senha incorretos!");
     });
-  }
+  };
 
   const handleCreateVehicle = (e) => {
     e.preventDefault();
+
+    if (!model.trim() || !brand.trim() || !price.trim() || !image.trim()) {
+      return alert("Não foi possível atualizar o veículo, tente novamente.");
+    }
+
     const body = { model, brand, price, image };
     const request = axios.post(`http://127.0.0.1:8000/car/`, body);
 
     setLoading(true);
 
     request.then((response) => {
-      navigate("/")
+      navigate("/");
     });
 
     request.catch((error) => {
@@ -130,7 +121,7 @@ export default function AddCar() {
       if (error.response.status === 401)
         alert("Falha no login, email ou senha incorretos!");
     });
-  }
+  };
 
   React.useEffect(() => {
     axios
@@ -144,9 +135,10 @@ export default function AddCar() {
         console.log(error);
       });
   }, []);
+
   return (
-    <Container>
-      <FormContainer >
+    <FormContainer>
+      <FormBox>
         <Box sx={{ display: "flex", width: "100%" }}>
           <Button
             variant={
@@ -157,6 +149,7 @@ export default function AddCar() {
               setActType(CREATE_VEHICLE_BUTTON);
               handleChangeVehicleAct();
             }}
+            disabled={loading}
           >
             {CREATE_VEHICLE}
           </Button>
@@ -169,6 +162,7 @@ export default function AddCar() {
               setActType(UPDATE_VEHICLE_BUTTON);
               handleChangeVehicleAct();
             }}
+            disabled={loading}
           >
             {UPDATE_VEHICLE}
           </Button>
@@ -197,6 +191,7 @@ export default function AddCar() {
             onChange={handleChange}
             margin="normal"
             sx={{ marginTop: "20px" }}
+            disabled={loading}
           >
             <MenuItem value="">
               <em>Selecione um Modelo</em>
@@ -248,15 +243,30 @@ export default function AddCar() {
             setFocus(CAR_FIELDS.image);
           }}
         />
-        <Button variant="contained" sx={{ marginY: "10px" }} onClick={actType === CREATE_VEHICLE_BUTTON ? handleCreateVehicle: handleUpdateVehicle}>
+        <Button
+          variant="contained"
+          sx={{ marginY: "10px" }}
+          onClick={
+            actType === CREATE_VEHICLE_BUTTON
+              ? handleCreateVehicle
+              : handleUpdateVehicle
+          }
+          disabled={loading}
+        >
           {actType === CREATE_VEHICLE_BUTTON ? CREATE_VEHICLE : UPDATE_VEHICLE}
         </Button>
         {actType === CREATE_VEHICLE_BUTTON ? null : (
-          <Button variant="contained" color="error" sx={{ marginY: "10px" }} onClick={handleDeleteVehicle}>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{ marginY: "10px" }}
+            onClick={handleDeleteVehicle}
+            disabled={loading}
+          >
             {DELETE_VEHICLE_BUTTON}
           </Button>
         )}
-      </FormContainer>
-    </Container>
+      </FormBox>
+    </FormContainer>
   );
 }

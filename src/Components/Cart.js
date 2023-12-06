@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,13 +15,20 @@ import ListItemText from "@mui/material/ListItemText";
 import CartContext from "../Context/CartContext";
 import UserContext from "../Context/UserContext";
 import axios from "axios";
+import { CartDrawerHeader } from "../styles/components";
 
 export default function Cart(props) {
   const { user } = React.useContext(UserContext);
   const { cart, setCart } = React.useContext(CartContext);
   const [loading, setLoading] = React.useState(false);
   const theme = useTheme();
+
   let total = 0;
+  const EMPTY_CART = "Nenhum produto adicionado";
+  const DELETE_CAR = "Excluir carro";
+  const BUY_CAR = "Finalizar compra";
+  const ADD = "Add +1";
+  const REMOVE = "Rem -1";
 
   React.useEffect(() => {
     if (localStorage.cart) {
@@ -61,35 +68,26 @@ export default function Cart(props) {
 
   const handleBuyCars = (e) => {
     e.preventDefault();
-    cart.map(c => {
-        const body = { car_id: c.id, user_id: user.id, qtd: c.qtd };
-        const request = axios.post(`http://127.0.0.1:8000/order`, body);
+    cart.map((c) => {
+      const body = { car_id: c.id, user_id: user.id, qtd: c.qtd };
+      const request = axios.post(`http://127.0.0.1:8000/order`, body);
 
-        setLoading(true);
+      setLoading(true);
 
-        request.then((response) => {
-          console.log(response.data);
-        });
+      request.then((response) => {
+        console.log(response.data);
+      });
 
-        request.catch((error) => {
-          setLoading(false);
-          if (error.response.status === 401)
-            alert("Falha no login, email ou senha incorretos!");
-        });
-    })
+      request.catch((error) => {
+        setLoading(false);
+        if (error.response.status === 401)
+          alert("Falha no login, email ou senha incorretos!");
+      });
+    });
 
     setCart([]);
     localStorage.removeItem("cart");
   };
-
-  const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-start",
-  }));
 
   const handleDrawerClose = () => {
     props.setOpenCart(false);
@@ -109,7 +107,7 @@ export default function Cart(props) {
         anchor="right"
         open={props.openCart}
       >
-        <DrawerHeader>
+        <CartDrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronLeftIcon />
@@ -118,7 +116,7 @@ export default function Cart(props) {
             )}
           </IconButton>
           <Typography>Carrinho</Typography>
-        </DrawerHeader>
+        </CartDrawerHeader>
         <Divider />
         <List>
           {cart.length ? (
@@ -159,7 +157,7 @@ export default function Cart(props) {
                     sx={{ width: "100%", marginRight: "5px" }}
                     onClick={() => handleIncreaseQtd(c)}
                   >
-                    Add +1
+                    {ADD}
                   </Button>
                   <Button
                     color="error"
@@ -167,7 +165,7 @@ export default function Cart(props) {
                     sx={{ width: "100%" }}
                     onClick={() => handleDecreaseQtd(c)}
                   >
-                    Rem -1
+                    {REMOVE}
                   </Button>
                 </Box>
                 <Button
@@ -176,14 +174,12 @@ export default function Cart(props) {
                   sx={{ width: "100%" }}
                   onClick={() => handleRemoveProduct(c)}
                 >
-                  Excluir carro
+                  {DELETE_CAR}
                 </Button>
               </ListItem>
             ))
           ) : (
-            <Typography textAlign={"center"}>
-              Nenhum produto adicionado
-            </Typography>
+            <Typography textAlign={"center"}>{EMPTY_CART}</Typography>
           )}
         </List>
         <Divider />
@@ -201,7 +197,7 @@ export default function Cart(props) {
               <Typography>${total}</Typography>
             </Box>
             <Divider />
-            <Button onClick={handleBuyCars}>Finalizar compra</Button>
+            <Button onClick={handleBuyCars}>{BUY_CAR}</Button>
           </React.Fragment>
         )}
       </Drawer>
