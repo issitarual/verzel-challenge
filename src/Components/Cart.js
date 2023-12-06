@@ -68,7 +68,7 @@ export default function Cart(props) {
 
   const handleBuyCars = (e) => {
     e.preventDefault();
-    cart.map((c) => {
+    cart.forEach((c) => {
       const body = { car_id: c.id, user_id: user.id, qtd: c.qtd };
       const request = axios.post(`http://127.0.0.1:8000/order`, body);
 

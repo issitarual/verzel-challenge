@@ -8,8 +8,6 @@ import AddCar from "./Pages/AddCar";
 import Order from "./Pages/Order";
 import DrawerMenu from "./Components/Drawer";
 import Header from "./Components/Header";
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import Cart from "./Components/Cart";
 import { AppContainer } from "./styles/components";
 
