@@ -109,6 +109,7 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
   const logout = () => {
     localStorage.removeItem("user");
     navigate("/");
+    window.location.reload()
   };
 
   return (
@@ -132,7 +133,7 @@ export default function DrawerMenu({ open, setOpen, drawerWidth }) {
               disablePadding
               sx={{ display: "block" }}
               onClick={() =>
-                i.name !== MENU.logOut ? navigate(i.link) : logout
+                i.name !== MENU.logOut ? navigate(i.link) : logout()
               }
             >
               <ListItemButton
