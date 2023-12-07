@@ -25,19 +25,21 @@ export default function Login({ setLogin, setUser }) {
     if(!email.trim() || !password.trim()){
       return alert("Não foi possível entrar na conta. Tente novamente.")
     }
-    const body = { email, password };
-    const request = axios.get(`http://127.0.0.1:8000/users`, body);
-
+    const requestUser = axios.get(`http://127.0.0.1:8000/users/`);
     setLoading(true);
-    console.log(body);
 
-    request.then((response) => {
-      setUser(response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
+    requestUser.then((response) => {
+      const user = response.data.find(u => u.email === email)
+      if(!user){
+        setLoading(false);
+        return alert("Usuário ou senha incorretos, tente novamente.")
+      }
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/");
     });
 
-    request.catch((error) => {
+    requestUser.catch((error) => {
       setLoading(false);
       if (error.response.status === 401)
         alert("Falha no login, email ou senha incorretos!");

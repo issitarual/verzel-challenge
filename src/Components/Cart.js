@@ -75,7 +75,7 @@ export default function Cart(props) {
       setLoading(true);
 
       request.then((response) => {
-        console.log(response.data);
+        alert("Compra realizada com sucesso!")
       });
 
       request.catch((error) => {

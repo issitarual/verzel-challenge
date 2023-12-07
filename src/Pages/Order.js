@@ -15,8 +15,8 @@ export default function Order() {
   const [loading, setLoading] = React.useState(true);
   const [order, setOrder] = React.useState([]);
 
-  React.useEffect(() => {
-    axios
+  const fetchGetOrder = async () => {
+    await axios
       .get(`http://127.0.0.1:8000/order/${user.id}`)
       .then((success) => {
         setOrder(success.data);
@@ -25,8 +25,12 @@ export default function Order() {
         alert("Algo deu errado, tente novamente!");
         console.log(error);
       });
+  };
+
+  React.useEffect(() => {
+    fetchGetOrder();
     setLoading(false);
-  }, [user]);
+  }, []);
 
   if (loading) {
     return <Loading />;
