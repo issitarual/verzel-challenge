@@ -52,3 +52,4 @@ npm start
 npm run build
 ```
 7. Finally access http://localhost:3000 on your favorite browser
+Obs: You'll have to create an admin user using the Back-end instructions if you want to create, update, or delete a car. Front-end only creates regular users.
