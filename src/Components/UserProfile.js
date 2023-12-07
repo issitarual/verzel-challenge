@@ -14,7 +14,7 @@ export default function UserProfile() {
   const PROFILE_EMAIL = "E-mail: ";
 
   const { user } = React.useContext(UserContext);
-  const [password, setPassword] = React.useState(user?.password);
+  const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 

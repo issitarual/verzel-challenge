@@ -16,12 +16,14 @@ import CartContext from "../Context/CartContext";
 import UserContext from "../Context/UserContext";
 import axios from "axios";
 import { CartDrawerHeader } from "../styles/components";
+import { useNavigate } from "react-router";
 
 export default function Cart(props) {
   const { user } = React.useContext(UserContext);
   const { cart, setCart } = React.useContext(CartContext);
   const [loading, setLoading] = React.useState(false);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   let total = 0;
   const EMPTY_CART = "Nenhum produto adicionado";
@@ -68,6 +70,10 @@ export default function Cart(props) {
 
   const handleBuyCars = (e) => {
     e.preventDefault();
+    if (!user) {
+      alert("Para comprar um carro é preciso fazer o login.");
+      return navigate("/profile");
+    }
     cart.forEach((c) => {
       const body = { car_id: c.id, user_id: user.id, qtd: c.qtd };
       const request = axios.post(`http://127.0.0.1:8000/order`, body);
@@ -75,7 +81,7 @@ export default function Cart(props) {
       setLoading(true);
 
       request.then((response) => {
-        alert("Compra realizada com sucesso!")
+        alert("Compra realizada com sucesso!");
       });
 
       request.catch((error) => {
