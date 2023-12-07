@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Verzel Front-End Challenge
+## About 🔎
+This is a project for a car store website.
+## Preview 👀
+| Page      | Image     |
+| -------------- | -------------- |
+| Home  |  ![Captura de tela 2023-12-06 231812](https://github.com/issitarual/verzel-challenge-front/assets/81389078/948742a0-d89d-45ca-af28-345a49ec15e2)  |
+| Cart  |  ![Captura de tela 2023-12-06 231837](https://github.com/issitarual/verzel-challenge-front/assets/81389078/8a5f0919-8f13-4d0e-8cf3-a689229241be)   |
+| Login/SignUp/Profile  |  ![Captura de tela 2023-12-06 232115](https://github.com/issitarual/verzel-challenge-front/assets/81389078/dfc51f3d-0539-4417-92e8-a8376af41b53)   |
+| Update/Create/Delete car  |    ![Captura de tela 2023-12-06 232132](https://github.com/issitarual/verzel-challenge-front/assets/81389078/d68f20c9-08cb-4625-b8ff-d31a76ba2d50)  |
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Implemented features ✅
+- [x] Sign up 
+- [x] Log in
+- [x] LogOut
+- [x] Profile page and change password
+- [x] Home with all cars available
+- [x] Cart with cars added with delete, increase, decrease, and buy a car function
+- [x] Create, update, and delete car (only admin users)
+- [x] Loading experience
+### Future improvements 🔮
+- [ ] Add more validations
+- [ ] Implement environment variables
+- [ ] Add API file with all API calls
+- [ ] Refactor
+- [ ] Add test
+- [ ] Create Order page
+- [ ] Improve Profile page
 
-## Available Scripts
+## Technologies
+The following tools and frameworks were used in the construction of the project:
 
-In the project directory, you can run:
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-%23FF6701?style=for-the-badge&logo=axios&logoColor=white)
 
-### `npm start`
+## How to run
+1. Clone this repository
+2. Clone the [back-end repository](https://github.com/issitarual/verzel-challenge-back)
+3. Follow instructions to run [back-end](https://github.com/issitarual/verzel-challenge-back)
+4. Install dependencies
+```bash
+npm i
+```
+5. Run the front-end with
+```bash
+npm start
+```
+6. You can optionally build the project running
+```bash
+npm run build
+```
+7. Finally access http://localhost:3000 on your favorite browser
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Obs: You'll have to create an admin user using the Back-end instructions if you want to create, update, or delete a car. Front-end only creates regular users.
