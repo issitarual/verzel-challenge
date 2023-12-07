@@ -22,17 +22,20 @@ export default function Login({ setLogin, setUser }) {
 
   function login(e) {
     e.preventDefault();
-    if(!email.trim() || !password.trim()){
-      return alert("Não foi possível entrar na conta. Tente novamente.")
+    if (!email.trim() || !password.trim()) {
+      return alert("Não foi possível entrar na conta. Tente novamente.");
     }
-    const requestUser = axios.post(`http://127.0.0.1:8000/user/`, {email, password});
+    const body = { email, password };
+    const requestUser = axios.post(`http://127.0.0.1:8000/user/`, {
+      body,
+    });
     setLoading(true);
 
     requestUser.then((response) => {
-      const user = response.data
-      if(!user){
+      const user = response.data;
+      if (!user) {
         setLoading(false);
-        return alert("Usuário ou senha incorretos, tente novamente.")
+        return alert("Usuário ou senha incorretos, tente novamente.");
       }
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
